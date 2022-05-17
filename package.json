@@ -5,7 +5,6 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
-    "relay": "node relay/main.js",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
