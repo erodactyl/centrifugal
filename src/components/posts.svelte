@@ -7,13 +7,16 @@
   onMount(() => {
     getPosts();
   });
-
-  // $: console.log($posts);
 </script>
 
 <h1>Superdecs</h1>
 <input bind:value={newPostText} />
-<button on:click={() => addPost(newPostText)}>Post</button>
+<button
+  on:click={() => {
+    addPost(newPostText);
+    newPostText = "";
+  }}>Post</button
+>
 
 <ul>
   {#each $posts as post}
