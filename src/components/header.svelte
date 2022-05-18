@@ -5,14 +5,14 @@
   let password = "";
 </script>
 
-<main>
+<div>
   {#if $alias === null}
-    <input bind:value={username} />
-    <input type="password" bind:value={password} />
+    <input bind:value={username} placeholder="Username" />
+    <input type="password" bind:value={password} placeholder="Password" />
     <button on:click={() => login(username, password)}>Login</button>
     <button on:click={() => signup(username, password)}>Signup</button>
   {:else}
     <span>@{$alias}</span>
     <button on:click={logout}>Logout</button>
   {/if}
-</main>
+</div>

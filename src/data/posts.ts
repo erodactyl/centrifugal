@@ -3,7 +3,13 @@ import { derived, writable } from "svelte/store";
 import { user } from "./auth";
 import { gun } from "./gun";
 
-const postsStore = writable([]);
+export interface IPost {
+  sender: string;
+  text: string;
+  time: number;
+}
+
+const postsStore = writable<IPost[]>([]);
 
 export const posts = derived(postsStore, ($postsStore) => {
   return Object.values($postsStore).sort((a, b) => a.time - b.time);

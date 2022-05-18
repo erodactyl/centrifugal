@@ -1,27 +1,27 @@
 <script>
   import { onMount } from "svelte";
+  import { alias } from "../data/auth";
   import { getPosts, addPost, posts } from "../data/posts";
+  import Post from "./post.svelte";
 
   let newPostText = "";
 
   onMount(() => {
     getPosts();
   });
-</script>
 
-<h1>Superdecs</h1>
-<input bind:value={newPostText} />
-<button
-  on:click={() => {
+  const submit = () => {
     addPost(newPostText);
     newPostText = "";
-  }}>Post</button
->
+  };
+</script>
 
-<ul>
-  {#each $posts as post}
-    <li>
-      <bold>{post.sender}: {post.text}</bold>
-    </li>
-  {/each}
-</ul>
+{#if $alias}
+  <h1>Superdecs</h1>
+  <input bind:value={newPostText} />
+  <button on:click={submit}>Post</button>
+{/if}
+
+{#each $posts as post}
+  <Post {post} />
+{/each}
