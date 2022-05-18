@@ -1,5 +1,4 @@
-<script>
-  import { fade, fly } from "svelte/transition";
+<script lang="ts">
   import { alias, login, signup, logout } from "../data/auth";
   import Avatar from "./avatar.svelte";
 

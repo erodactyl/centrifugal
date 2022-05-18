@@ -13,8 +13,9 @@
   img {
     height: 40px;
     width: 40px;
-    border: 1px solid gray;
+    border: 1px solid var(--accent);
     border-radius: 100%;
     padding: 5px;
+    background-color: #fff;
   }
 </style>

@@ -11,7 +11,12 @@
 
 <style>
   main {
+    margin: 0;
     max-width: 900px;
     margin: 0 auto;
+  }
+  :global(body) {
+    background-color: var(--background);
+    color: var(--accent-light);
   }
 </style>

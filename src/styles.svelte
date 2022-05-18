@@ -1,9 +1,19 @@
 <style>
+  :global(:root) {
+    --primary: #06bcc1;
+    --primary-dark: #05999e;
+    --background: #12263a;
+    --background-light: #26527d;
+    --accent: #c5d8d1;
+    --accent-light: #dae7e2;
+  }
+
   :global(button),
   :global(button:focus) {
     margin: 0;
     outline: none;
-    background-color: #06bcc1;
+    border: none;
+    background-color: var(--primary);
     cursor: pointer;
     color: #fff;
     padding: 8px 20px;
@@ -11,7 +21,7 @@
   }
 
   :global(button:hover) {
-    background-color: #05999e;
+    background-color: var(--primary-dark);
   }
 
   :global(.alias) {
@@ -31,6 +41,6 @@
   }
 
   :global(input:focus) {
-    border: 1px solid #06bcc1;
+    border: 1px solid var(--primary);
   }
 </style>

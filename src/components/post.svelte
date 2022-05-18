@@ -21,12 +21,11 @@
 <style>
   .container {
     max-width: 900px;
-    /* display: flex; */
-    /* flex-direction: column; */
     margin: 20px 0;
     padding: 20px;
     border-radius: 5px;
-    border: 1px solid #12263a;
+    border: 1px solid var(--accent);
+    background-color: var(--background-light);
   }
   .header {
     display: flex;
