@@ -1,5 +1,5 @@
 {
-  "name": "superdec",
+  "name": "centrifugal",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
