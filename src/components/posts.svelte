@@ -25,7 +25,7 @@
   <p>Log in to add a post.</p>
 {/if}
 
-{#each $posts as post}
+{#each $posts as post (post.time)}
   <Post {post} />
 {/each}
 
