@@ -12,7 +12,7 @@ export interface IPost {
 const postsStore = writable<IPost[]>([]);
 
 export const posts = derived(postsStore, ($postsStore) => {
-  return Object.values($postsStore).sort((a, b) => a.time - b.time);
+  return Object.values($postsStore).sort((a, b) => b.time - a.time);
 });
 
 export const addPost = async (text: string) => {

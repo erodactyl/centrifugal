@@ -17,11 +17,28 @@
 </script>
 
 {#if $alias}
-  <h1>Superdecs</h1>
-  <input bind:value={newPostText} />
-  <button on:click={submit}>Post</button>
+  <div class="new-post">
+    <input placeholder="Post" bind:value={newPostText} />
+    <button on:click={submit}>Post</button>
+  </div>
+{:else}
+  <p>Log in to add a post.</p>
 {/if}
 
 {#each $posts as post}
   <Post {post} />
 {/each}
+
+<style>
+  .new-post {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    margin: 10px 0;
+    width: 100%;
+  }
+  button {
+    align-self: flex-end;
+  }
+</style>

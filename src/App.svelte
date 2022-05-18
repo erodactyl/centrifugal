@@ -1,6 +1,7 @@
 <script lang="ts">
   import Header from "./components/header.svelte";
   import Posts from "./components/posts.svelte";
+  import "./styles.svelte";
 </script>
 
 <main>

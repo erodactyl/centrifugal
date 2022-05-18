@@ -1,7 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import formatDistance from "date-fns/formatDistance";
-  import { now } from "svelte/internal";
   import type { IPost } from "../data/posts";
   import Avatar from "./avatar.svelte";
 
@@ -12,7 +11,7 @@
   <div class="header">
     <Avatar alias={post.sender} />
     <div class="info">
-      <p class="sender">@{post.sender}</p>
+      <p class="alias">@{post.sender}</p>
       <p class="sent">{formatDistance(post.time, Date.now())}</p>
     </div>
   </div>
@@ -43,9 +42,5 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-  .sender {
-    font-size: 18px;
-    font-weight: 800;
   }
 </style>
