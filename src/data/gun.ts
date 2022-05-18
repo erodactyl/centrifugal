@@ -3,4 +3,4 @@ import "gun/sea";
 import "gun/axe";
 
 // TODO: put the link in config
-export const gun = Gun("https://superdec-gun.herokuapp.com/gun");
+export const gun = Gun();
