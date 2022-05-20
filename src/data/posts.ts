@@ -8,6 +8,7 @@ export interface IPost {
   text: string;
   time: number;
   id: string;
+  likes?: number;
 }
 
 const postsStore = writable<IPost[]>([]);
@@ -51,7 +52,10 @@ export const getPosts = () => {
     .map()
     .on(async (_post, id) => {
       const { pub, details: _details } = _post;
-      const likes = await getLikes(id);
+      let likes = [];
+      if (_post.likes) {
+        likes = await getLikes(id);
+      }
       const details = await SEA.verify(_details, { pub });
       const sender = await gun.user(pub);
       const post = {
