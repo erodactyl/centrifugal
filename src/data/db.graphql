@@ -1,0 +1,28 @@
+Root {
+  posts
+}
+
+Post {
+  details: Signed<{
+    text
+    time
+  }>
+  sender:
+  replies: Post[]
+  likes: User[]
+}
+
+User {
+  alias
+}
+
+Flows: 
+1. User A writes a text, signs it, puts an :id (timestamp), and adds it to the "posts" path
+2. User B writes a text, signs it, puts an id (timestamp) and add it to the "posts/:id/replies" path as a reply to the previous post
+3. User B signs their alias and sets it under "posts/:id/likes" path
+
+Vulnerability check:
+User X is an exploier. They want to
+1. Change a post text - can't do, as it is signed by the sender (Can possibly delete the text field and put their own, needs checking)
+2. Change a post sender - can't do, as it is signed by the sender (Same as above)
+3. Add infinite likes - can't do, likes have a signed alias in them

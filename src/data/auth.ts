@@ -6,6 +6,15 @@ export const alias = writable(null);
 
 export const user = gun.user().recall({ sessionStorage: true });
 
+export const sign = (what) => {
+  // TODO: Read user.pair() from the proxy
+  return SEA.sign(what, JSON.parse(window.sessionStorage.pair));
+};
+
+export const getPair = () => {
+  return JSON.parse(window.sessionStorage.pair);
+};
+
 gun.on("auth", async () => {
   const _alias = await user.get("alias");
   alias.set(_alias);

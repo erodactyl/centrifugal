@@ -1,6 +1,6 @@
 import Gun, { SEA } from "gun";
 import { derived, writable } from "svelte/store";
-import { user } from "./auth";
+import { sign, user } from "./auth";
 import { gun } from "./gun";
 
 export interface IPost {
@@ -16,29 +16,25 @@ export const posts = derived(postsStore, ($postsStore) => {
 });
 
 export const addPost = async (text: string) => {
-  const time = Date.now();
-  // const signedText = await SEA.sign(text, getPair());
-  const userPost = user.get("all").set({ what: text });
-  const index = time.toString();
-  gun.get("posts").get(index).put(userPost);
+  const time = Date.now().toString();
+  const details = await sign({ time, text });
+  gun.get("posts").get(time).put({ details, pub: user.is.pub });
 };
 
 export const getPosts = () => {
   gun
     .get("posts")
     .map()
-    .on(async (_post, id) => {
-      const sender = await gun.user(_post);
-      // const text = await SEA.verify(_post.what, { pub: sender.pub });
-      // @ts-ignore
-      const time = Gun.state.is(_post, "what");
+    .on(async (_post) => {
+      const { pub, details: _details } = _post;
+      const details = await SEA.verify(_details, { pub });
+      const sender = await gun.user(pub);
       const post = {
         // @ts-ignore
         sender: sender.alias,
-        text: _post.what,
-        time,
-        id,
+        text: details.text,
+        time: parseInt(details.time),
       };
-      postsStore.update((_ps) => ({ ..._ps, [id]: post }));
+      postsStore.update((_ps) => ({ ..._ps, [details.time]: post }));
     });
 };
