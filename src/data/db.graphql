@@ -9,7 +9,11 @@ Post {
   }>
   sender:
   replies: Post[]
-  likes: User[]
+  # Need to make sure malicious actors can't put your like on other posts
+  likes: Signed<{
+    Post[id]
+    time
+  }>
 }
 
 User {

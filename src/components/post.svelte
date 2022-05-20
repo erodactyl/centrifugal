@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import formatDistance from "date-fns/formatDistance";
-  import type { IPost } from "../data/posts";
+  import { toggleLike, IPost } from "../data/posts";
   import Avatar from "./avatar.svelte";
 
   export let post: IPost;
@@ -16,6 +16,8 @@
     </div>
   </div>
   <p>{post.text}</p>
+  <button on:click={() => toggleLike(post.id)}>Like</button>
+  <p>Likes: {post.likes}</p>
 </div>
 
 <style>
