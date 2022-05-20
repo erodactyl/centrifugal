@@ -1,6 +1,7 @@
 <script lang="ts">
   import { alias, login, signup, logout } from "../data/auth";
   import Avatar from "./avatar.svelte";
+  import Fixes from "./fixes.svelte";
 
   let username = "";
   let password = "";
@@ -21,6 +22,7 @@
     <button class="logout" on:click={logout}>Logout</button>
   </div>
 {/if}
+<Fixes />
 
 <style>
   .info {
