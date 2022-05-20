@@ -29,18 +29,23 @@
     <input bind:value={replyText} />
     <button on:click={reply}>Reply</button>
   </div>
-  <div class="replies">
-    {#each post.replies as reply (reply.id)}
-      <div class="header">
-        <Avatar alias={reply.sender} />
-        <div class="info">
-          <p class="alias">@{reply.sender}</p>
-          <!-- <p class="sent">{formatDistance(reply.time, Date.now())}</p> -->
+  {#if post.replies.length}
+    <h2 class="replies-header">Replies</h2>
+    <div class="replies">
+      {#each post.replies as reply (reply.id)}
+        <div class="reply">
+          <div class="header">
+            <Avatar alias={reply.sender} />
+            <div class="info">
+              <p class="alias">@{reply.sender}</p>
+              <!-- <p class="sent">{formatDistance(reply.time, Date.now())}</p> -->
+            </div>
+          </div>
+          <p>{reply.text}</p>
         </div>
-      </div>
-      <p>{reply.text}</p>
-    {/each}
-  </div>
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -67,7 +72,17 @@
     flex-direction: column;
     justify-content: center;
   }
+  .replies-header {
+    margin-left: 20px;
+  }
   .replies {
-    margin-left: 50px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--accent);
+  }
+  .reply {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--accent);
   }
 </style>
