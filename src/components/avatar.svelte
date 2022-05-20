@@ -4,12 +4,11 @@
 </script>
 
 <img
-  src="/favicon.png"
+  src={`https://avatars.dicebear.com/api/bottts/${alias}.svg`}
   transition:scale={{ duration: 150 }}
   alt={`Avatar of ${alias}`}
 />
 
-<!-- src={`https://avatars.dicebear.com/api/bottts/${alias}.svg`} -->
 <style>
   img {
     height: 40px;
