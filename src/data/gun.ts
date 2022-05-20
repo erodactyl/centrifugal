@@ -4,5 +4,5 @@ import "gun/sea";
 import "gun/lib/load";
 
 // TODO: put the link in config
-export const gun = Gun();
+export const gun = Gun("https://centrifugal.herokuapp.com/gun");
 // https://centrifugal.herokuapp.com/gun
