@@ -1,4 +1,4 @@
-# Decentralized feed app built with GunJS and Svelte
+# [Decentralized feed app](https://centrifugal.erikdavtyan.com/) built with GunJS and Svelte
 
 Decentralized technologies are the future, but we can already start implementing them today.
 This application is a proof of concept that a fully decentralized clone of "your favorite feed app" can be build already. It does not use a blockchain, there are no fees for posting things.
