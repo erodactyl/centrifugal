@@ -3,6 +3,7 @@ import "gun/sea";
 // import "gun/axe";
 import "gun/lib/load";
 
-// TODO: put the link in config
-export const gun = Gun("http://localhost:8000/gun");
-// https://centrifugal.herokuapp.com/gun
+// @ts-ignore Workaround, for some reason reading __global.RELAY_URL in the gun setup directly does not work.
+const global = __global;
+// @ts-ignore
+export const gun = Gun(global.RELAY_URL);

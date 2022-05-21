@@ -10,6 +10,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-replace": "^4.0.0",
     "@tsconfig/svelte": "^2.0.0",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
@@ -25,7 +26,6 @@
   "dependencies": {
     "@rollup/plugin-typescript": "^8.3.2",
     "date-fns": "^2.28.0",
-    "dotenv": "^16.0.1",
     "gun": "^0.2020.1237",
     "sha1": "^1.1.1",
     "sirv-cli": "^2.0.0"
