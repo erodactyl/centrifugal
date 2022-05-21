@@ -1,17 +1,11 @@
 import { SEA } from "gun";
 import { getPair } from "./auth";
-import sha1 from "gun/sea/sha1";
-import shim from "gun/sea/shim";
+import hash from "sha1";
 import { gun } from "./gun";
 import { writable } from "svelte/store";
 
 const uuid = () => {
   return Math.random().toString().slice(2);
-};
-
-const hash = async (data) => {
-  const buffer = await sha1(data);
-  return shim.Buffer.from(buffer, "binary").toString("hex");
 };
 
 export class Chat {
@@ -27,17 +21,19 @@ export class Chat {
     this.connect(cb);
   };
 
+  chat = () => {
+    return gun.get("chat").get(this.hashKey);
+  };
+
   sendMessage = async (message: string) => {
     const time = Date.now();
     const data = { time, message };
     const encryptedData = await SEA.encrypt(data, this.secret);
-    gun.get("chat").get(this.hashKey).get(uuid()).put(encryptedData);
+    this.chat().get(uuid()).put(encryptedData);
   };
 
   connect = (cb) => {
-    gun
-      .get("chat")
-      .get(this.hashKey)
+    this.chat()
       .map()
       .on(async (encryptedMessage) => {
         console.log(encryptedMessage);
