@@ -2,11 +2,17 @@
   import Header from "./components/header.svelte";
   import Posts from "./components/posts.svelte";
   import "./styles.svelte";
+  import { currentChatAlias } from "./data/chat";
+  import Chat from "./components/chat.svelte";
 </script>
 
 <main>
   <Header />
-  <Posts />
+  {#if $currentChatAlias}
+    <Chat />
+  {:else}
+    <Posts />
+  {/if}
 </main>
 
 <style>

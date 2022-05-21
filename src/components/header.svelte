@@ -18,7 +18,7 @@
 {:else}
   <div class="info">
     <p class="alias">@{$alias}</p>
-    <Avatar alias={$alias} />
+    <Avatar user={{ alias: $alias }} />
     <button class="logout" on:click={logout}>Logout</button>
   </div>
 {/if}

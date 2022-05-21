@@ -16,9 +16,9 @@
 
 <div transition:fade={{ duration: 200 }} class="container">
   <div class="header">
-    <Avatar alias={post.sender} />
+    <Avatar user={post.sender} />
     <div class="info">
-      <p class="alias">@{post.sender}</p>
+      <p class="alias">@{post.sender.alias}</p>
       <p class="sent">{formatDistance(post.time, Date.now())}</p>
     </div>
   </div>
@@ -35,9 +35,9 @@
       {#each post.replies as reply (reply.id)}
         <div class="reply">
           <div class="header">
-            <Avatar alias={reply.sender} />
+            <Avatar user={reply.sender} />
             <div class="info">
-              <p class="alias">@{reply.sender}</p>
+              <p class="alias">@{reply.sender.alias}</p>
               <!-- <p class="sent">{formatDistance(reply.time, Date.now())}</p> -->
             </div>
           </div>

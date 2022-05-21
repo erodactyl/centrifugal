@@ -1,12 +1,14 @@
 <script lang="ts">
   import { scale } from "svelte/transition";
-  export let alias: string;
+  import { currentChatAlias } from "../data/chat";
+  export let user: { pub?: string; alias: string };
 </script>
 
 <img
-  src={`https://avatars.dicebear.com/api/bottts/${alias}.svg`}
+  src={`https://avatars.dicebear.com/api/bottts/${user.alias}.svg`}
   transition:scale={{ duration: 150 }}
-  alt={`Avatar of ${alias}`}
+  alt={`Avatar of ${user.alias}`}
+  on:click={() => currentChatAlias.set(user.pub)}
 />
 
 <style>

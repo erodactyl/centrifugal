@@ -1,39 +1,8 @@
-Root {
-  posts
-}
+import { SEA } from "gun";
+import sha1 from "gun/sea/sha1";
+import shim from "gun/sea/shim";
 
-Post {
-  details: Signed<{
-    text
-    time
-  }>
-  sender:
-  replies: Post[]
-  # Need to make sure malicious actors can't put your like on other posts
-  likes: Signed<{
-    Post[id]
-    time
-  }>
-}
-
-User {
-  alias
-}
-
-Flows: 
-1. User A writes a text, signs it, puts an :id (timestamp), and adds it to the "posts" path
-2. User B writes a text, signs it, puts an id (timestamp) and add it to the "posts/:id/replies" path as a reply to the previous post
-3. User B signs their alias and sets it under "posts/:id/likes" path
-
-Vulnerability check:
-User X is an exploier. They want to
-1. Change a post text - can't do, as it is signed by the sender (Can possibly delete the text field and put their own, needs checking)
-2. Change a post sender - can't do, as it is signed by the sender (Same as above)
-3. Add infinite likes - can't do, likes have a signed alias in them
-
-
-P2P E2E chat:
-
+/**
 Alice wants to talk to Bob. Alice wants the messages to be encrypted.
 On top of that, Alice doesn't want the network to know that she is talking to Bob.
 Ignoring the networking steps (anyone running a relay can know who is sending the message),
@@ -55,3 +24,41 @@ We will solve that problem next.
 Chat [id: hash of the Secret] {
   message: Encrypted<message, Secret>
 }
+*/
+
+const hash = async (data) => {
+  const buffer = await sha1(data);
+  return shim.Buffer.from(buffer, "binary").toString("hex");
+};
+
+const getDbWithMessage = async (alice, bobEpub, text) => {
+  const secret = await SEA.secret(bobEpub, alice);
+  const key = await hash(secret);
+  const encryptedMessage = await SEA.encrypt(text, secret);
+  return { [key]: encryptedMessage };
+};
+
+const decryptMessage = async (bob, aliceEpub, db) => {
+  const secret = await SEA.secret(aliceEpub, bob);
+  const key = await hash(secret);
+  const encryptedMessage = db[key];
+  const message = await SEA.decrypt(encryptedMessage, secret);
+  return message;
+};
+
+const main = async () => {
+  const alice = await SEA.pair();
+  const bob = await SEA.pair();
+
+  // Alice has her keys and Bob's public key
+  const db = await getDbWithMessage(alice, bob.epub, "Hello Bob");
+
+  // Bob hsa his keys and Alice's public key
+  const message = await decryptMessage(bob, alice.epub, db);
+
+  console.log(message);
+
+  const bob_secret = await SEA.secret(alice.epub, bob);
+};
+
+main();

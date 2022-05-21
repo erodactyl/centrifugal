@@ -4,7 +4,10 @@ import { sign, user } from "./auth";
 import { gun } from "./gun";
 
 export interface IPost {
-  sender: string;
+  sender: {
+    pub: string;
+    alias: string;
+  };
   text: string;
   time: number;
   id: string;
@@ -66,7 +69,7 @@ const getReplies = (id: string) => {
           const sender = await gun.user(pub);
           return {
             // @ts-ignore
-            sender: sender.alias,
+            sender: { alias: sender.alias, pub },
             text: details.text,
             time: parseInt(details.time),
             id: details.time,
@@ -90,14 +93,13 @@ export const getPosts = () => {
       const sender = await gun.user(pub);
       const post = {
         // @ts-ignore
-        sender: sender.alias,
+        sender: { pub, alias: sender.alias },
         text: details.text,
         time: parseInt(details.time),
         id: details.time,
         likes: likes.length,
         replies,
       };
-      console.log(post);
       postsStore.update((_ps) => ({ ..._ps, [details.time]: post }));
     });
 };
