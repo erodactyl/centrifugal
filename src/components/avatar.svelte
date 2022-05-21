@@ -1,17 +1,23 @@
 <script lang="ts">
-  import { Link } from "svelte-routing";
+  import { Link, navigate } from "svelte-routing";
+  import { alias } from "../data/auth";
 
   import { scale } from "svelte/transition";
   export let user: { pub?: string; alias: string };
+
+  const open = async () => {
+    if ($alias) {
+      navigate(`chat/${user.pub}`);
+    }
+  };
 </script>
 
-<Link to={`chat/${user.pub}`}>
-  <img
-    src={`https://avatars.dicebear.com/api/bottts/${user.alias}.svg`}
-    transition:scale={{ duration: 150 }}
-    alt={`Avatar of ${user.alias}`}
-  />
-</Link>
+<img
+  src={`https://avatars.dicebear.com/api/bottts/${user.alias}.svg`}
+  transition:scale={{ duration: 150 }}
+  alt={`Avatar of ${user.alias}`}
+  on:click={open}
+/>
 
 <style>
   img {
