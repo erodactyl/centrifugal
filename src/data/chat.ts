@@ -2,7 +2,6 @@ import { SEA } from "gun";
 import { getPair } from "./auth";
 import hash from "sha1";
 import { gun } from "./gun";
-import { writable } from "svelte/store";
 
 const uuid = () => {
   return Math.random().toString().slice(2);
@@ -36,12 +35,8 @@ export class Chat {
     this.chat()
       .map()
       .on(async (encryptedMessage) => {
-        console.log(encryptedMessage);
         const data = await SEA.decrypt(encryptedMessage, this.secret);
-        // console.log(data);
         cb(data);
       });
   };
 }
-
-export const currentChatAlias = writable<string | null>(null);

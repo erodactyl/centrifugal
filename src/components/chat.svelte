@@ -1,15 +1,16 @@
 <script>
   import { onMount } from "svelte";
-  import { currentChatAlias } from "../data/chat";
   import { gun } from "../data/gun";
   import { Chat } from "../data/chat";
+
+  export let pub;
 
   let messagesData = {};
   let chat;
   let text = "";
 
   onMount(async () => {
-    const partner = await gun.user($currentChatAlias);
+    const partner = await gun.user(pub);
     const onMessage = (data) => {
       messagesData[data.time] = data;
     };

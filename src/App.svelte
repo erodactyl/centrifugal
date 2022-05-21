@@ -1,18 +1,21 @@
 <script lang="ts">
+  import { Router, Route } from "svelte-routing";
   import Header from "./components/header.svelte";
   import Posts from "./components/posts.svelte";
   import "./styles.svelte";
-  import { currentChatAlias } from "./data/chat";
   import Chat from "./components/chat.svelte";
+
+  export let url = "";
 </script>
 
 <main>
-  <Header />
-  {#if $currentChatAlias}
-    <Chat />
-  {:else}
-    <Posts />
-  {/if}
+  <Router {url}>
+    <Header />
+    <div>
+      <Route path="chat/:pub" component={Chat} />
+      <Route path="/" component={Posts} />
+    </div>
+  </Router>
 </main>
 
 <style>

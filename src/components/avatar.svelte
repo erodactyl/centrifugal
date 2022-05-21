@@ -1,15 +1,17 @@
 <script lang="ts">
+  import { Link } from "svelte-routing";
+
   import { scale } from "svelte/transition";
-  import { currentChatAlias } from "../data/chat";
   export let user: { pub?: string; alias: string };
 </script>
 
-<img
-  src={`https://avatars.dicebear.com/api/bottts/${user.alias}.svg`}
-  transition:scale={{ duration: 150 }}
-  alt={`Avatar of ${user.alias}`}
-  on:click={() => currentChatAlias.set(user.pub)}
-/>
+<Link to={`chat/${user.pub}`}>
+  <img
+    src={`https://avatars.dicebear.com/api/bottts/${user.alias}.svg`}
+    transition:scale={{ duration: 150 }}
+    alt={`Avatar of ${user.alias}`}
+  />
+</Link>
 
 <style>
   img {
