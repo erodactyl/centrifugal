@@ -1,6 +1,6 @@
 import Gun from "gun";
 import "gun/sea";
-// import "gun/axe";
+import "gun/axe";
 import "gun/lib/load";
 
 // @ts-ignore Workaround, for some reason reading __global.RELAY_URL in the gun setup directly does not work.
